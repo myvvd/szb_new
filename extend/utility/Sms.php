@@ -106,7 +106,7 @@ class Sms
    *
    * @return mixed true or error
    */
-  public static function verify(string $mobile, string $code, string $event = '')
+  public static function verify(string $mobile, string $code, string $event = null)
   {
     $result = Db::name('sms')->where(['mobile' => $mobile, 'event' => $event])
       ->whereTime('exp_time', '-5 minutes')
