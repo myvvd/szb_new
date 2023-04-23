@@ -75,7 +75,7 @@ class Sms
       $smsapi = "http://api.smsbao.com/";
       $user = "SIDI"; //短信平台帐号
       $pass = md5("sidisidi"); //短信平台密码
-      $content='【省长杯纺织服装分赛】您的验证码是' . $code . '，请于5分钟内完成输入。如非本人操作，请忽略。';//要发送的短信内容
+      $content='【烟台市市长杯工业设计大赛】您的验证码是' . $code . '，请于5分钟内完成输入。如非本人操作，请忽略。';//要发送的短信内容
       $phone = $mobile;//要发送短信的手机号码
       $sendurl = $smsapi."sms?u=".$user."&p=".$pass."&m=".$phone."&c=".urlencode($content);
       $returnCode =file_get_contents($sendurl);
