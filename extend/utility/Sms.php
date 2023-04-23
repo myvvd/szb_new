@@ -46,7 +46,7 @@ class Sms
     Db::name('sms')->where('exp_time', '<', time())->setField('verify_state', -1);
     // 验证上一条短信与本次发送时间差是否少于 指定时间
     $expTime = Db::name('sms')->where(['mobile' => $mobile, 'event' => $event, 'verify_state' => 0])->order('id desc')->value('exp_time');
-    if ($expTime && $expTime - time() < self::SMS_EXPIRE_SECONDS * 1000) {
+    if ($expTime && $expTime - time() < self::SMS_EXPIRE_SECONDS) {
       return error('您上一条验证码尚未失效，请输入上一条收到的验证码');
     }
 
@@ -89,7 +89,7 @@ class Sms
         'ip' => $ip,
         'times' => 0,
         'create_time' => $now,
-        'exp_time' => $now + self::SMS_EXPIRE_SECONDS * 1000,
+        'exp_time' => $now + self::SMS_EXPIRE_SECONDS,
       ];
       Db::name('sms')->insert($data);
     }
