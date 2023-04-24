@@ -130,16 +130,17 @@ border-radius: 29px;}
 		</td>
         <td class="subtitle">{if ( $vo['zj_audit1'] == 1) OR ( $vo['gx_audit'] == 1) }<p class="passed">初评通过</p>{else /}待初评{/if}</td>
         {if $isopen == 1}<td class="subtitle">{switch $vo.zj_audit2 }{case 0}待复评{/case}{case 1}<p class="passed">复评通过</p>{/case}{default /}复评未通过{/switch}</td>{/if}
-        <td class="subtitle">{switch $vo.zj_audit3 }{case 0}待终评{/case}{case 1}<p class="passed">终评通过</p>{/case}{default /}终评未通过{/switch}</td>
+<!--        <td class="subtitle">{switch $vo.zj_audit3 }{case 0}待终评{/case}{case 1}<p class="passed">终评通过</p>{/case}{default /}终评未通过{/switch}</td>-->
+          <td class="subtitle">{switch $vo.zj_audit3 }{case 0}{/case}{case 1}<p class="passed">终评通过</p>{/case}{default /}终评未通过{/switch}</td>
         <td class="subtitle"><a class="color" href="/enroll?id={$vo.id}">查看作品</a></td>
          {if $ispdf == 1}<td class="subtitle">{empty name="$vo.pdf_upload_url"}<span onclick="nopdf_upload_url();">下载申报书</span>{else /}<a href="{$vo.pdf_upload_url}" {if $vo.checkstatus1==1}class="color"{/if} title="下载申报书" target="_blank" >下载申报书</a>{/empty}</td>{/if}
          <td class="subtitle">
 		
-		{if $vo.checkstatus1==1}
-			<a href="javascript:void(0);" class="createCertificate color" data-id="{$vo.id}">下载参赛证明</a>
-		{else}
-			<a href="javascript:void(0);" onclick="noCertificate();" title="下载参赛证明">下载参赛证明</a>
-		{/if}
+<!--		{if $vo.checkstatus1==1}-->
+<!--			<a href="javascript:void(0);" class="createCertificate color" data-id="{$vo.id}">下载参赛证明</a>-->
+<!--		{else}-->
+<!--			<a href="javascript:void(0);" onclick="noCertificate();" title="下载参赛证明">下载参赛证明</a>-->
+<!--		{/if}-->
 		</td>
       </tr>
       {/volist}
