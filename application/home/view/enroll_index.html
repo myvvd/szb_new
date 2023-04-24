@@ -1,6 +1,6 @@
 {extend name="bgbase"}
 {block name="style"}
-<style>
+<style xmlns="http://www.w3.org/1999/html">
 .post-content {background: #EFEFEF;padding-top: 50px;min-height: 780px;display: flex;flex-direction: column;align-items: center;}
 .page-tip-bar{background-color:#FBFCC5;color: red;border: 1px solid #FFCC66;padding: 2px;margin: 5px 0;width: 1260px;display: none;}
 .page-tip-bar span{padding-left: 30px;}
@@ -188,14 +188,22 @@
       </div>
     </div>
     <div class="enrollImg-box">
-      <span style="margin-top: -150px;"><p>身份证</p><p>*</p><p>:</p></span>
+      <span style="margin-top: -110px;"><p>身份证</p><p>*</p><p>:</p></span>
       <div class="photo-box">
-        <button type="button" class="layui-btn layui-btn-normal upload"  id="btnValidationB">选取文件</button>
+        <button type="button" class="layui-btn layui-btn-normal upload"  id="btnValidationB">正面文件</button>
         <input type="hidden" name="validation_b" accept="image/*" lay-reqText="请上传身份证照片" data-name="validation_b">
         <div class="img-box"><div><i class="layui-icon layui-icon-picture"></i></div><text>删除</text></div>
-        <div class="msg">（请上传身份证正反面信息，建议上传jpg/png图片格式，大小在5MB以内）</div>
+      </div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div class="photo-box">
+        <button type="button" class="layui-btn layui-btn-normal upload"  id="btnValidationB2">反面文件</button>
+        <input type="hidden" name="validation_b2" accept="image/*" lay-reqText="请上传身份证照片" data-name="validation_b2">
+        <div class="img-box"><div><i class="layui-icon layui-icon-picture"></i></div><text>删除</text></div>
+<!--        <div class="msg">（请上传身份证正反面信息，建议上传jpg/png图片格式，大小在5MB以内）</div>-->
       </div>
     </div>
+    <div class="msg" style="margin-left: 420px">（请上传身份证正反面信息，建议上传jpg/png图片格式，大小在5MB以内）</div>
+
     <div class="enrollImg-box">
       <span style="margin-top: -150px;"><p>教师工作证、学生证</p><p></p><p>:</p></span>
       
@@ -402,6 +410,7 @@ function commonUpload(elem,field,size) {
       var elPreview = $(this.item).parent().find('.img-box div');
       obj.preview(function(index, file, result){
         $(elem).children('div').remove();
+        // $(elem).append('<div class="upload-tip">'+ file.name+'</div>')
         $(elem).append('<div class="upload-tip">'+ file.name+'</div>')
         var choosedImg = $('<img class="layui-upload-img imgPreview" src="'+ result +'"/>');
         elPreview.empty().append(choosedImg)
@@ -419,6 +428,7 @@ function commonUpload(elem,field,size) {
 }
 commonUpload('#btnValidationA','file_validation_a','');
 commonUpload('#btnValidationB','file_validation_b','');
+commonUpload('#btnValidationB2','file_validation_b2','');
 commonUpload('#btnValidationC','file_validation_c','');
 commonUpload('#btnWorkPic1','file_work_pic1','');
 commonUpload('#btnWorkPic2','file_work_pic2','');
@@ -594,6 +604,7 @@ $(document).ready(function () {
 function loadData(data) {
   $('input[name="validation_a"]').val()?$('input[name="validation_a"]').parent().find('.img-box div').empty().append($('<img class="layui-upload-img imgPreview" src="'+ data.validation_a +'"/>')):'';
   $('input[name="validation_b"]').val()?$('input[name="validation_b"]').parent().find('.img-box div').empty().append($('<img class="layui-upload-img imgPreview" src="'+ data.validation_b +'"/>')):'';
+  $('input[name="validation_b2"]').val()?$('input[name="validation_b2"]').parent().find('.img-box div').empty().append($('<img class="layui-upload-img imgPreview" src="'+ data.validation_b2 +'"/>')):'';
   $('input[name="validation_c"]').val()?$('input[name="validation_c"]').parent().find('.img-box div').empty().append($('<img class="layui-upload-img imgPreview" src="'+ data.validation_c +'"/>')):'';
   $('input[name="work_pic1"]').val()?$('input[name="work_pic1"]').parent().find('.img-box div').empty().append($('<img class="layui-upload-img imgPreview" src="'+ data.work_pic1 +'"/>')):'';
   $('input[name="work_pic2"]').val()?$('input[name="work_pic2"]').parent().find('.img-box div').empty().append($('<img class="layui-upload-img imgPreview" src="'+ data.work_pic2 +'"/>')):'';
