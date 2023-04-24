@@ -31,7 +31,7 @@ class Enroll extends HomeBase
         $this->assign('cate', $cate);
         //查询城市种类
         $city = Db::name('cate')
-          ->where('cateid = 7 and status = 0')
+          ->where('cateid = 14 and status = 0')
           ->order('sort ASC')
           ->select();
 

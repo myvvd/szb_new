@@ -82,7 +82,7 @@ class Systems extends AdminBase
     if(empty($id)) {
       $this->error('传入参数错误');
     }
-    
+
     $this->model->where('id',$id)->delete();
     $this->success();
   }
