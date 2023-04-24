@@ -77,7 +77,7 @@ class Systems extends AdminBase
     $this->success('1', null, $this->model);
   }
 
-  public function del(int $id=0)
+  public function del($id=0)
   {
     if(empty($id)) {
       $this->error('传入参数错误');
