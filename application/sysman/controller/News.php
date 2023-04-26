@@ -58,6 +58,7 @@ class News extends AdminBase
     }
     $data = $this->request->except('file');
     $data['create_time'] = time();
+    unset($data['/sysman/news/save']);
     // var_dump($data);exit;
     // return json($data);
     $result = Db::name('news')->where('id', $data['id'])->find();
