@@ -511,7 +511,8 @@ function pdf($id)
   // $pdf->Write(0, getCityName($work['title']), '', 0, 'L', true, 0, false, false, 0);
    $pdf->Write(0, $work['title'], '', 0, 'L', true, 0, false, false, 0);
 
-
+    $x1 = 0;
+    $y1 = 0;
   
   switch ($contestants) {
     case 13:
