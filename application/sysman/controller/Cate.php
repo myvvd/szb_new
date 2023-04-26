@@ -67,7 +67,9 @@ class cate extends AdminBase
     if(empty($data['id'])){
        unset($data['id']);
     }
+    
     unset($data['Image']);
+    unset($data["/sysman/cate/save"]);
 
     if ($result) {
       $result = Db::name('category')->update($data);
