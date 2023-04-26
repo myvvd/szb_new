@@ -295,7 +295,7 @@
       <div class="photo-box" style="margin: 0px;">
         <button type="button" class="layui-btn layui-btn-normal upload"  id="btnrelevantData">选取文件</button>
         <input type="hidden" type="file" name="relevant_data" accept="application/pdf,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation" lay-reqText="请上传作品相关资料" data-name="relevant_data">
-        <div class="msg">（上传一份PPT或PDF文件，20MB以内，可包含专利/获奖证明/作品介绍）</div>
+        <div class="msg">（上传一份PPT或PDF文件，大小<a style="color: #9c3328;font-weight: bold">30MB以内</a>，可包含专利/获奖证明/作品介绍）</div>
       </div>
     </div>
     <h1>产品(作品)图片</h1>
@@ -447,7 +447,8 @@ function uploadPdf(elem,field) {
     exts: 'ppt|pdf|pptx',
     accept:'file',
     acceptMime: 'application/pdf,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation',
-    size: 20480,
+    // size: 20480,
+    size: 30720,
     data:{createThumb:false},
     choose: function(obj){
       var elPreview = $(this.item).parent().find('.img-box div');

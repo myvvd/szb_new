@@ -109,7 +109,8 @@ class Enroll extends HomeBase
            // var_dump($works_category);var_dump($data['works_category']);var_dump($res);exit;
             $orderNo = str_pad($res + 1, 3, '0', STR_PAD_LEFT);
             //$data['workcode'] = "F". $worksCategory.$declaration_group.$city.$contestants.$orderNo;
-			$data['workcode'] = "F".$declaration_group.$worksCategory.$city.$contestants.$orderNo;
+//			$data['workcode'] = "F".$declaration_group.$worksCategory.$city.$contestants.$orderNo;
+			$data['workcode'] = $declaration_group.$worksCategory.$city.$contestants.$orderNo;
         }
 		
 		$age = date('Y') - substr($data['creator_idcard'], 6, 4);
