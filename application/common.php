@@ -1095,9 +1095,9 @@ function pdf($id)
 
   ob_clean();
   $saveName = $work['workcode'] . '-'  . $work['title']; //. date('YmdHis') . '-'
-//  $saveurl = '/pdf/' . mb_convert_encoding($saveName) . '.pdf';
-    $saveurl = '/pdf/' . mb_convert_encoding($saveName,"GBK","UTF-8") . '.pdf';
+  $saveurl = '/pdf/' . $saveName . '.pdf';
   Db::name('entry_work')->where('id', $id)->setField('pdf_upload_url', $saveurl);
+  $saveurl = '/pdf/' . mb_convert_encoding($saveName,"GBK","UTF-8") . '.pdf';//中文转码
   $pdf->Output(env('root_path') . 'public' . $saveurl, 'F');
 }
 
