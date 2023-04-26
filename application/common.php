@@ -1095,7 +1095,8 @@ function pdf($id)
 
   ob_clean();
   $saveName = $work['workcode'] . '-'  . $work['title']; //. date('YmdHis') . '-'
-  $saveurl = '/pdf/' . $saveName . '.pdf';
+//  $saveurl = '/pdf/' . mb_convert_encoding($saveName) . '.pdf';
+    $saveurl = '/pdf/' . mb_convert_encoding($saveName,"GBK","UTF-8") . '.pdf';
   Db::name('entry_work')->where('id', $id)->setField('pdf_upload_url', $saveurl);
   $pdf->Output(env('root_path') . 'public' . $saveurl, 'F');
 }
