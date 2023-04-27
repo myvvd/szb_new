@@ -770,7 +770,7 @@ class Works extends AdminBase
     {
         $id = input('id/d');
         $this->removeRelatedFiles($id);
-        Db::name('entry_work')->where('id', '=', $id)->save(['status'=>0]);
+        Db::name('entry_work')->where('id', '=', $id)->update(['status'=>0]);
         $this->success();
     }
 
