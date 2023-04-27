@@ -834,7 +834,7 @@ class Works extends AdminBase
         foreach ($ids as $id) {
             $this->removeRelatedFiles($id);
         }
-        Db::name('entry_work')->where('id', 'IN', $ids)->save(['status'=>0]);
+        Db::name('entry_work')->where('id', 'IN', $ids)->update(['status'=>0]);
         $this->success();
     }
 
