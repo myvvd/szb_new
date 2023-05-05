@@ -302,7 +302,7 @@ class Works extends AdminBase
                     
                 }elseif($chart == 3){
                     //作品类别占比数量
-                    $city = Db::name('cate')->where('cateid = 7')->field('title,id')->select();
+                    $city = Db::name('cate')->where('cateid = 14')->field('title,id')->select();
                     
                     foreach ($city as $key => $val) {
                         
