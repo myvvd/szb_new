@@ -97,6 +97,7 @@ class Change extends AdminBase
        unset($data['id']);
     }
     unset($data['Image']);
+    unset($data['/sysman/change/save']);
     if ($result) {
       $result = Db::name('cate')->update($data);
     } else {
