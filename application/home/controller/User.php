@@ -73,7 +73,8 @@ class User extends HomeBase
       } else {
         $url = '/sysman/index';
       }
-      $this->success('登录成功', $url);
+//      $this->success('系统维护中，请稍后再试', $url);
+      $this->error('系统维护中，请稍后再试', $url);
     }
 
     $this->error('登录失败,请检查输入的帐号与密码是否正确');
