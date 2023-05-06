@@ -77,7 +77,8 @@ class User extends HomeBase
       $this->error('系统维护中，请稍后再试', $url);
     }
 
-    $this->error('登录失败,请检查输入的帐号与密码是否正确');
+//    $this->error('登录失败,请检查输入的帐号与密码是否正确');
+    $this->error('系统维护中，请稍后再试');
   }
   
   public function expertlogin()
