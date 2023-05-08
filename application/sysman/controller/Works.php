@@ -481,7 +481,7 @@ class Works extends AdminBase
 
 		$doc_path = str_ireplace(str_replace("\\", "/", $_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_FILENAME']);
 		
-		$doc_path = substr($doc_path,0,-10);
+//		$doc_path = substr($doc_path,0,-10);
 		$realpath = $doc_path . $filepath;
 		
 		//var_dump($realpath);exit;
