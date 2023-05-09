@@ -70,6 +70,23 @@
 
 {block name="body"}
 
+<script>
+  $(function (){
+    var tips;
+    $('.icon-combined-shape-copy').on({
+      mouseenter:function (){
+        var that = this;
+        var content = that.id;
+        tips = layer.tips(content,that,{ tips: [1, '#797777'], time: 0, area: 'auto', maxWidth: 500, tipsMore: true });
+      },
+      mouseleave:function (){
+        layer.close(tips);
+      }
+    })
+          }
+  )
+</script>
+
 <div class="contest-intro">
 
   {volist name="listcate" id="v"}
@@ -136,7 +153,7 @@
 
     {if $v['cateid'] == '9'}
 
-    <div>{$v.title}</div>
+    <div class="iconfont icon-combined-shape-copy tooltip-icon liu_tips" id="{$v.subcate}">{$v.title}</div>
 
     {/if}
 

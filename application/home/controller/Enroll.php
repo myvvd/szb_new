@@ -41,6 +41,16 @@ class Enroll extends HomeBase
           ->where('cateid = 9 and status = 0')
           ->order('sort ASC')
           ->select();
+        //申报小类
+        foreach ($shenb as &$val){
+            $shenbb = Db::name('cate')
+                ->where('status = 0 and pid = '.$val['id'])
+                ->field('id,title')
+                ->order('id')
+                ->select();
+            $val['catestr'] = $shenbb;
+        }
+//dump($shenb);die;
 
         $this->assign('shenb', $shenb);
 
@@ -85,7 +95,7 @@ class Enroll extends HomeBase
         $model = new EntryWork();
 
 		 $data['submitto'] = input('submitto/d');
-
+//dump($data);die;
         // 获取编号,新提交且无编号时新生成编号
         //if ($data['submitto'] == 1&& empty($data['workcode'])) {
 		if (true) {
@@ -115,7 +125,7 @@ class Enroll extends HomeBase
 		
 		$age = date('Y') - substr($data['creator_idcard'], 6, 4);
 		$data['age'] = $age<0||$age >110?'':$age;
-		
+
         if (($data['id']) !== null && !empty($data['id'])) {
             //unset($data['uid']);
             $submitto = $model->where('id', $data['id'])->field('submitto,checkstatus1')->find()->getData();
@@ -146,7 +156,7 @@ class Enroll extends HomeBase
           
         } else {
 			if($data['submitto'] != 1){
-				unset($data['workcode']);
+				//runset($data['workcode']);
 			}
             $result = $model->allowField(true)->isUpdate(false)->save($data);
         }

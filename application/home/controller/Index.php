@@ -23,8 +23,21 @@ class Index extends HomeBase
             ->where('status = 0')
             ->order('sort ASC')
             ->select();
-            
-//     dump($listcate);die;
+
+    foreach ($listcate as &$v){
+        if ($v['cateid'] == 9){
+            $subcate = Db::name('cate')->where('pid',$v['id'])->field('title')->order('id')->select();
+            $v['catestr'] = $subcate;
+            $str = '';
+            foreach ($subcate as &$val){
+                $str .= $val['title'].',';
+            }
+            $str = substr($str,0,-1);
+            $v['subcate'] = $str;
+        }
+
+    }
+//    dump($listcate);die;
     $this->assign('listcate', $listcate);
     return $this->fetch();
   }

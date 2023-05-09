@@ -45,6 +45,14 @@
 .upload:hover{color: #000;}
 .tip{margin-left: 430px;}
 .tip i{padding-right: 5px;color: #ed0000;}
+.sub-area{
+  display: flex;
+  flex-wrap: wrap;
+}
+#frmPost .sub-area .layui-form-radio{
+  flex-shrink: 0;
+  white-space: nowrap;
+}
 </style>
 {/block}
 {block name="body"}
@@ -96,13 +104,41 @@
     </div>
     <div class="layui-form-item">
       <span style="margin-top: -75px;"><p>行业领域</p><p>*</p><p>:</p></span>
-      <div class="layui-input-block" style="width: 640px;display: flex;flex-wrap: wrap;" id="works_category">
+<!--      <div class="layui-input-block" style="width: 640px;display: flex;flex-wrap: wrap;" id="works_category">-->
+<!--        <?php $k = 1;?>-->
+<!--        {volist name="shenb" id="v"}-->
+
+<!--        <div class="main-area" style="{if $v['id']==54}width: 320px;{else}width: 215px;{/if}">-->
+<!--          <input type="radio" name="works_category" value="{$v['id']}" {if $k == 1}checked{/if} lay-verify="otherReq" title="{$v['title']}">-->
+<!--          -->
+
+<!--        </div>-->
+<!--        <?php $k++;?>-->
+<!--        {/volist}-->
+<!--        -->
+<!--      </div>-->
+      <div class="layui-input-block" style="width: 500px;display: flex;flex-wrap: wrap;">
         <?php $k = 1;?>
-        {volist name="shenb" id="v"}
-        <div style="{if $v['id']==54}width: 320px;{else}width: 215px;{/if}"><input type="radio" name="works_category" value="{$v['id']}" {if $k == 1}checked{/if} lay-verify="otherReq" title="{$v['title']}"></div>
+        {volist name="shenb" id="vo"}
+        <div class="main-area" style="width: 195px;">
+          <input type="radio" name="works_category" value="{$vo['id']}" {if $k == 1}checked{/if} lay-verify="otherReq" title="{$vo['title']}">
+        </div>
         <?php $k++;?>
         {/volist}
-        
+      </div>
+    </div>
+    <div class="layui-form-item" style="align-items: flex-start;" aria-required="true">
+      <span style="margin-top: 8px;"><p>行业领域子类</p><p>*</p><p>:</p></span>
+      <div class="layui-input-block" style="width: 640px;display: flex;flex-wrap: wrap;">
+        {volist name="shenb" id="v"}
+        <?php $k = 1;?>
+        <div class="sub-area" id="subarea{$v['id']}" style="display: none" >
+          {volist name="v['catestr']" id="val"}
+            <input type="radio" name="works_category_sub" value="{$val['id']}" lay-verify="otherReq"   title="{$val['title']}">
+            <?php $k++;?>
+          {/volist}
+        </div>
+        {/volist}
       </div>
     </div>
 	<div class="middleinput-box d-show">
@@ -502,6 +538,7 @@ $('.btn-box button:eq(1)').click(function () {
   $('input[name=contact_tel],input[name=creator_tel]').attr('lay-verify',"required|phone");
   //$('input[name=creator_idcard]').attr('lay-verify',"required|identity");
   $('input[name=zipcode]').attr('lay-verify',"required|zipcode");
+  $('input[type=radio]').attr('lay-verify','required');
   //$('input[name=title]').attr('lay-verify',"required|zf20_40");
   $('input[type=hidden]:not(input[name=validation_a]):not(input[name=validation_c]):not(input[name=work_pic4]):not(input[name=work_pic5]):not(input[name=work_pic6]):not(input[name=id]):not(input[name=uid]):not(input[name=workcode]),input[type=radio]').attr('lay-verify','required');
   //两个textarea增加验证
@@ -572,6 +609,7 @@ data.field.works_profile = data.field.works_profile.replace("\n","");
 });
 
 $(document).ready(function () {
+  $('.sub-area').first().show()
   var enrollId = getUrlParam('id');
   //有id时显示修改提报记录
   if (!isNaN(enrollId) && parseInt(enrollId)>0) {
@@ -590,7 +628,12 @@ $(document).ready(function () {
 		  if(res.data.submitto==1 && res.data.checkstatus1!=-1){
 			$("#sub_work").hide();
 		  }
-          form.val('frmPost',res.data)
+          form.val('frmPost', res.data)
+          if (res.data.works_category) {
+            $('.sub-area').first().hide()
+            $('#subarea' + res.data.works_category).show()
+          }
+
           loadData(res.data);
 		  set_bdi(res.data);
         } else {
@@ -754,8 +797,12 @@ $('.ischeck').click(function() {
 		  $('input[name=validation_c]').removeAttr('lay-verify').attr('lay-verify',"needless3");
 	}
 })
-
-console.log($('input[name=contestants]').val());
+$('.main-area').click(function () {
+  $('.sub-area').each(function(index, ele) {
+    $(ele).hide()
+  })
+  $('#subarea'+$(this).children('input').attr('value')).show();
+})
 
 
 
