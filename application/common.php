@@ -445,10 +445,10 @@ function pdf($id)
 
   $pdf->AddPage(); //增加一个页面
   $pdf->Image('./static/pdf-assets/p1.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
-  $num = 110;
+  $num = 128.3;
   for($i = 0; $i<9; $i++){
    
-    $pdf->SetXY($num, 28);
+    $pdf->SetXY($num, 39);
     $pdf->Cell(0, 30, $work['workcode'][$i], 0, 0, 'L', 0, '', 0); //编号
     $num = $num + 6.45;
   }
@@ -457,36 +457,36 @@ function pdf($id)
   // ------ 申报单位 个人名称
   if(mb_strlen($work['name'],'utf-8')>15) {
     $pdf->SetFontSize(14);
-    $pdf->MultiCell(74, 45, $work['name'], 0, 'L', false, 0, 124,140, true, $stretch=1, false, false, '', 'M',true);
+    $pdf->MultiCell(74, 45, $work['name'], 0, 'L', false, 0, 124,120, true, $stretch=1, false, false, '', 'M',true);
   } else {
       $pdf->SetFontSize(14);
-    $pdf->SetXY(124, 142);
+    $pdf->SetXY(124, 126);
     $pdf->Cell(0, 40, $work['name'], 0, 0, 'L', 0, '', 0); //申报单位 个人名称
   }
 
   $pdf->SetFontSize(14);
 
-  $pdf->SetXY(54, 180);
+  $pdf->SetXY(60, 154);
   $pdf->Cell(0, 0, $work['commend_company'], 0, 0, 'L', 0, '', 0); //推荐单位
 
-  $pdf->SetXY(64, 200);
+  $pdf->SetXY(60, 165);
   $pdf->Write(0, $work['title'], '', 0, 'L', true, 0, false, false, 0); //作品名称
 
   //申报组别
   if ($declaration_group['ftitle'] == 'C') {
-    $pdf->SetXY(65, 220);
+    $pdf->SetXY(71, 177);
     $pdf->Write(0, '√', '', 0, 'L', true, 0, false, false, 0); //产品组
   } else {
-    $pdf->SetXY(127 , 220);
+    $pdf->SetXY(133 , 177);
     $pdf->Write(0, '√', '', 0, 'L', true, 0, false, false, 0); //概念组
   }
 
   // 填表日期年月日
-  $pdf->SetXY(72, 240);
+  $pdf->SetXY(72, 187);
   $pdf->Write(0, date('Y', $work['create_time']), '', 0, 'L', true, 0, false, false, 0);
-  $pdf->SetXY(112, 240);
+  $pdf->SetXY(112, 187);
   $pdf->Write(0, date('m', $work['create_time']), '', 0, 'L', true, 0, false, false, 0);
-  $pdf->SetXY(154, 240);
+  $pdf->SetXY(154, 187);
   $pdf->Write(0, date('d', $work['create_time']), '', 0, 'L', true, 0, false, false, 0);
 
   $pdf->AddPage(); //增加一个页面
@@ -507,7 +507,7 @@ function pdf($id)
   
  
   $pdf->SetFont('stsongstdlight', '', 12, '', true); //设置字体
-  $pdf->SetXY(56, 44);
+  $pdf->SetXY(60, 62);
   // $pdf->Write(0, getCityName($work['title']), '', 0, 'L', true, 0, false, false, 0);
    $pdf->Write(0, $work['title'], '', 0, 'L', true, 0, false, false, 0);
 
@@ -516,24 +516,24 @@ function pdf($id)
   
   switch ($contestants) {
     case 13:
-      $x = 55;
-      $y = 55;
+      $x = 58.8;
+      $y = 75;
       break;
     case 14:
-      $x = 146.5;
-      $y = 55;
+      $x = 127;
+      $y = 75;
       break;
 //    case 18:
 //      $x = 146.5;
 //      $y = 71;
 //      break;
     case 47:
-      $x = 55;
-      $y = 65.6;
+      $x = 58.8;
+      $y = 83;
       break;
     case 48:
-      $x = 146.5;
-      $y = 65.6;
+      $x = 128;
+      $y = 83;
       break;
 
   }
@@ -544,11 +544,13 @@ function pdf($id)
 
   $pdf->Write(0, '√', '', 0, 'L', true, 0, false, false, 0); //申报单位类别
 //$contestants = 18;
+//    dump($work);die;
   if ($contestants==48) {
     //个人信息申报栏
-	$pdf->SetXY(53, 91);
+	$pdf->SetXY(63, 105);
     $pdf->Write(0, $work['creator_designer'], '', 0, 'L', true, 0, false, false, 0); //主创设计者
-	 $pdf->SetXY(134, 91);
+      $pdf->SetFontSize(12);
+	 $pdf->SetXY(140, 105.2);
 	if(empty($work['creator_hz'])){
 		$pdf->Write(0, $work['creator_idcard'], '', 0, 'L', true, 0, false, false, 0); //身份证号
 	}else{
@@ -559,17 +561,17 @@ function pdf($id)
 
    
     
-    $pdf->SetXY(53, 103);
+    $pdf->SetXY(63, 114);
     $pdf->Write(0, $work['creator_tel'], '', 0, 'L', true, 0, false, false, 0); //主创电话/手机
 
       //地址
 	 $pdf->SetFontSize(12);
-	$pdf->MultiCell(50, 115, preg_replace('/\n{20,}/','',$work['address']), 0, 'L', false, 0, 136,48, true, $stretch=0, false, false, '', 'M',true);
+	$pdf->MultiCell(120, 115, preg_replace('/\n{20,}/','',$work['address']), 0, 'L', false, 0, 58,70, true, $stretch=0, false, false, '', 'M',true);
 	//$pdf->MultiCell(50, 115,'联系人电话联系人电话联系人电话联系人电话', 0, 'L', false, 0, 134,114, true, $stretch=0, false, false, '', 'M',true);
 
       //邮箱
-	$pdf->SetFontSize(14);
-	  $pdf->SetXY(53, 112);
+	$pdf->SetFontSize(12);
+	  $pdf->SetXY(140, 114);
     $pdf->Write(0, $work['creator_email'], '', 0, 'L', true, 0, false, false, 0); //主创邮箱
     //$pdf->SetXY(138, 142);
     //$pdf->Write(0, $work['contact_tel'], '', 0, 'L', true, 0, false, false, 0); //联系人电话
@@ -584,9 +586,9 @@ function pdf($id)
     // $pdf->Write(0, $work['contact_person'], '', 0, 'L', true, 0, false, false, 0); //联系人姓名
     // $pdf->SetXY(131, 109);
     // $pdf->Write(0, $work['contact_tel'], '', 0, 'L', true, 0, false, false, 0); //电话/手机
-	  $pdf->SetFontSize(12);
+//	  $pdf->SetFontSize(12);
 	  
-	  $pdf->MultiCell(57, 118, preg_replace('/\n{18,}/','',$work['team_member']), 0, 'L', false, 0, 134,58, true, $stretch=0, false, false, '', 'M',true);
+//	  $pdf->MultiCell(57, 118, preg_replace('/\n{18,}/','',$work['team_member']), 0, 'L', false, 0, 134,58, true, $stretch=0, false, false, '', 'M',true);
 	  //$pdf->MultiCell(57, 118, '联系人电话联系人电话联系人电话联系人电话', 0, 'L', false, 0, 134,123, true, $stretch=0, false, false, '', 'M',true);
 	  
 	// $pdf->SetFontSize(14); 
@@ -594,7 +596,7 @@ function pdf($id)
     //$pdf->Write(0, $work['contact_person'], '', 0, 'L', true, 0, false, false, 0); //联系人
 	 $pdf->SetFontSize(12);
   // $pdf->MultiCell(20, 173, preg_replace('/\n{2,}/','',$work['works_profile']), 0, 'L', false, 0, 25, 204, true, $stretch=0, false, false, '', 'M');
-	$pdf->MultiCell(160, 110, preg_replace('/\n{20,}/','',$work['works_profile']), 0, 'L', false, 0, 26, 139, true, $stretch=0, false, false, '', 'M');
+	$pdf->MultiCell(155, 115, preg_replace('/\n{20,}/','',$work['works_profile']), 0, 'L', false, 0, 31, 143, true, $stretch=0, false, false, '', 'M');
 	 
 	
   } else {
@@ -608,28 +610,28 @@ function pdf($id)
     // }
     // $pdf->Write(0, $work['address'], '', 0, 'L', true, 1, false, false, 0); //地址
     // $pdf->MultiCell(58, 8, $work['address'], 0, 'L', false, 0, 49.5,$y, true, $stretch=0, false, false, '', 'M',true);
-	 $pdf->SetFontSize(13);
+	 $pdf->SetFontSize(12);
    
-	$pdf->SetXY(56, 86);
+	$pdf->SetXY(63, 103.5);
     $pdf->Write(0, $work['name'], '', 0, 'L', true, 0, false, false, 0); //单位名称
 	
-	 $pdf->SetXY(56, 96.5);
+	 $pdf->SetXY(63, 113);
     $pdf->Write(0, $work['credit_code'], '', 0, 'L', true, 0, false, false, 0); //单位社会信用代码
 	
-    $pdf->SetFontSize(14);
+    $pdf->SetFontSize(12);
    
-    $pdf->SetXY(56, 108);
+    $pdf->SetXY(63, 123);
     $pdf->Write(0, $work['creator_designer'], '', 0, 'L', true, 0, false, false, 0); //主创设计者
-     $pdf->SetXY(136, 108);
+     $pdf->SetXY(141, 123);
     
 	 if(empty($work['creator_hz'])){
 		  $pdf->Write(0, $work['creator_idcard'], '', 0, 'L', true, 0, false, false, 0); //主创身份证号
 	 }else{
 		  $pdf->Write(0, $work['creator_hz'], '', 0, 'L', true, 0, false, false, 0); //主创身份证号
 	 }
-    $pdf->SetXY(56, 119);
+    $pdf->SetXY(63, 133);
     $pdf->Write(0, $work['creator_tel'], '', 0, 'L', true, 0, false, false, 0); //主创电话/手机
-     $pdf->SetXY(136, 119);
+     $pdf->SetXY(141, 133);
      $pdf->Write(0, $work['creator_email'], '', 0, 'L', true, 0, false, false, 0); //主创邮箱
    /* if(mb_strlen($work['team_member'],'utf-8')>28) {
        $pdf->SetFontSize(12);
@@ -641,38 +643,39 @@ function pdf($id)
      }*/
 	  $pdf->SetFontSize(12);
 	  
-	  $pdf->MultiCell(120, 118, preg_replace('/\n{18,}/','',$work['team_member']), 0, 'L', false, 0, 56,75, true, $stretch=0, false, false, '', 'M',true);
+	  $pdf->MultiCell(120, 118, preg_replace('/\n{18,}/','',$work['team_member']), 0, 'L', false, 0, 63,88, true, $stretch=0, false, false, '', 'M',true);
 	 // $pdf->MultiCell(57, 118, '团队成员团队成员团队成员团队成员', 0, 'L', false, 0, 134,61, true, $stretch=0, false, false, '', 'M',true);
-	  $pdf->SetFontSize(14); 
-    $pdf->SetXY(56, 142);
+	  $pdf->SetFontSize(12);
+    $pdf->SetXY(63, 154.5);
     $pdf->Write(0, $work['contact_person'], '', 0, 'L', true, 0, false, false, 0); //联系人
-    $pdf->SetXY(136,142);
+    $pdf->SetXY(142,154.3);
     $pdf->Write(0, $work['contact_tel'], '', 0, 'L', true, 0, false, false, 0); //联系人电话
 	
-    $pdf->SetFontSize(10);
-	  $pdf->MultiCell(50, 140, preg_replace('/\n{20,}/','',$work['address']), 0, 'L', false, 0, 56,84, true, $stretch=0, false, false, '', 'M',true);
-		$pdf->SetFontSize(10);
-	  $pdf->SetXY(136, 153);
+    $pdf->SetFontSize(11);
+	  $pdf->MultiCell(50, 140, preg_replace('/\n{20,}/','',$work['address']), 0, 'L', false, 0, 61,97, true, $stretch=0, false, false, '', 'M',true);
+		$pdf->SetFontSize(12);
+	  $pdf->SetXY(142, 164);
     $pdf->Write(0, $work['contact_email'], '', 0, 'L', true, 0, false, false, 0); //邮编
      $pdf->SetFontSize(12);
   // $pdf->MultiCell(20, 173, preg_replace('/\n{2,}/','',$work['works_profile']), 0, 'L', false, 0, 25, 204, true, $stretch=0, false, false, '', 'M');
-	$pdf->MultiCell(168, 110, preg_replace('/\n{20,}/','',$work['works_profile']), 0, 'L', false, 0, 20, 175, true, $stretch=0, false, false, '', 'M');
+	$pdf->MultiCell(158, 110, preg_replace('/\n{20,}/','',$work['works_profile']), 0, 'L', false, 0, 29, 182, true, $stretch=0, false, false, '', 'M');
   }
 
 
   $pdf->AddPage(); //表2：验证材料页面
+
   $pdf->Image('./static/pdf-assets/p5.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
   if (!empty($work['validation_a'])) {
-    $pdf->Image('.' . $work['validation_a'], 74, 52, 50, 40, '', '', '', false, 300, '', false, false, 0);
+    $pdf->Image('.' . $work['validation_a'], 64, 75, 90, 70, '', '', '', false, 300, '', false, false, 0);
   }
   if (!empty($work['validation_b'])) {
-    $pdf->Image('.' . $work['validation_b'], 25, 109, 30, 16, '', '', '', false, 100, '', false, false, 0);
+    $pdf->Image('.' . $work['validation_b'], 30, 169, 30, 16, '', '', '', false, 100, '', false, false, 0);
   }
     if (!empty($work['validation_b2'])) {
-        $pdf->Image('.' . $work['validation_b'], 57, 109, 30, 16, '', '', '', false, 100, '', false, false, 0);
+        $pdf->Image('.' . $work['validation_b2'], 63, 169, 30, 16, '', '', '', false, 100, '', false, false, 0);
     }
   if (!empty($work['validation_c'])) {
-    $pdf->Image('.' . $work['validation_c'], 112, 98, 60, 32, '', '', '', false, 100, '', false, false, 0);
+    $pdf->Image('.' . $work['validation_c'], 112, 160, 60, 32, '', '', '', false, 100, '', false, false, 0);
   }
 
   if (!empty($work['validation_a'])) {
@@ -701,197 +704,252 @@ function pdf($id)
   $pdf->AddPage(); //表3：作品情况页面
 //  $pdf->Image('./static/pdf-assets/p6-profile.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
   $pdf->Image('./static/pdf-assets/p6.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
-  $pdf->SetXY(56, 40);
+  $pdf->SetXY(56, 55);
   $pdf->Write(0, $work['title'], '', 0, 'L', true, 0, false, false, 0); //作品名称
 
   //作品类别
-  $works_category = $work['works_category'];
-
-  //$works_category = 32;
-  switch ($works_category) {
-      //装备制造类
-    case '78':
-        $x1 = 46;
-        $y1 = 60;
-          $x = 55;
-          $y = 65.5;
-      break;
-    case '79':
-        $x1 = 46;
-        $y1 = 60;
-          $x = 126;
-          $y = 65.5;
-      break;
-    case '80':
-        $x1 = 46;
-        $y1 = 60;
-          $x = 55;
-          $y = 71;
-      break;
+    $works_category = $work['works_category'];
+  $works_category_sub = $work['works_category_sub'];
+    $x1 = 52.5;
+    $y1 = 75.5;
+    $x = 0;
+    $y = 0;
+ if (empty($works_category_sub)){
+     //未选择小类时
+     switch ($works_category){
+         //装备制造类
+         case '32':
+             $x1 = 52.5;
+             $y1 = 75.5;
+             break;
+         //智能电子信息类
+         case '31':
+             $x1 = 54.5;
+             $y1 = 92;
+             break;
+         //新能源新材料类
+         case '30':
+             $x1 = 54.5;
+             $y1 = 109.1;
+             break;
+         //食品及包装类
+         case '29':
+             $x1 = 54.5;
+             $y1 = 125.5;
+             break;
+         //健康安全防护类
+         case '6':
+             $x1 = 54.5;
+             $y1 = 136;
+             break;
+         //纺织服饰
+         case '5':
+             $x1 = 54.5;
+             $y1 = 152.5;
+             break;
+         //文娱创意类
+         case '4':
+             $x1 = 54.5;
+             $y1 = 163.5;
+             break;
+         //泛家居类
+         case '63':
+             $x1 = 54.5;
+             $y1 = 180.5;
+             break;
+         //社会服务综合类
+         case '64':
+             $x1 = 54.5;
+             $y1 = 197.1;
+             break;
+     }
+ }else{
+     switch ($works_category_sub) {
+         //装备制造类
+         case '78':
+             $x1 = 52.5;
+             $y1 = 75.5;
+                 $x = 61;
+                 $y = 81.2;
+             break;
+         case '79':
+             $x1 = 52.5;
+             $y1 = 75.5;
+                 $x = 132.8;
+                 $y = 81.2;
+             break;
+         case '80':
+             $x1 = 52.5;
+             $y1 = 75.5;
+                 $x = 61;
+                 $y = 87;
+             break;
 //    case '81':
 //      $x = 60.5;
 //      $y = 70;
 //      break;
-    case '82':
-        $x1 = 46;
-        $y1 = 60;
-          $x = 126.5;
-          $y = 71;
-      break;
-  //智能电子信息类
-    case '83':
-        $x1 = 48;
-        $y1 = 77;
-          $x = 55;
-          $y = 82;
-      break;
-    case '84':
-        $x1 = 48;
-        $y1 = 77;
-          $x = 126.5;
-          $y = 82;
-      break;
-    case '85':
-        $x1 = 48;
-        $y1 = 77;
-          $x = 55;
-          $y = 88;
-      break;
-    case '86':
-        $x1 = 48;
-        $y1 = 77;
-          $x = 126.5;
-          $y = 88;
-      break;
-    //新能源新材料类
-    case '87':
-        $x1 = 48;
-        $y1 = 94;
-          $x = 55;
-          $y = 99;
-      break;
-    case '88':
-        $x1 = 48;
-        $y1 = 94;
-          $x = 127;
-          $y = 100;
-      break;
-    case '89':
-        $x1 = 48;
-        $y1 = 94;
-          $x = 55;
-          $y = 104;
-      break;
-    case '90':
-        $x1 = 48;
-        $y1 = 94;
-          $x = 127;
-          $y = 104;
-      break;
-      //食品及包装类
-    case '91':
-        $x1 = 48;
-        $y1 = 110;
-          $x = 55;
-          $y = 115;
-      break;
-        //健康安全防护类
-    case '92':
-        $x1 = 48;
-        $y1 = 121;
-          $x = 55;
-          $y = 127;
-      break;
-    case '93':
-        $x1 = 48;
-        $y1 = 121;
-          $x = 127.5;
-          $y = 127;
-      break;
-    case '94':
-        $x1 = 48;
-        $y1 = 121;
-          $x = 55;
-          $y = 132;
-      break;
-      //纺织服饰
-    case '95':
-        $x1 = 48;
-        $y1 = 137.5;
-          $x = 55;
-          $y = 143;
-      break;
-    case '96':
-        $x1 = 48;
-        $y1 = 137.5;
-          $x = 127;
-          $y = 143;
-      break;
-      //文娱创意类
-    case '97':
-        $x1 = 48;
-        $y1 = 147.5;
-          $x = 55;
-          $y = 153;
-      break;
-	case '98':
-        $x1 = 48;
-        $y1 = 147.5;
-          $x = 127;
-          $y = 153;
-      break;
-    case '99':
-        $x1 = 48;
-        $y1 = 147.5;
-          $x = 55;
-          $y = 160;
-          break;
-    //泛家居类
-    case '100':
-        $x1 = 48;
-        $y1 = 164.5;
-          $x = 55;
-          $y = 170;
-          break;
-    case '101':
-        $x1 = 48;
-        $y1 = 164.5;
-          $x = 127;
-          $y = 170;
-          break;
-    case '102':
-        $x1 = 48;
-        $y1 = 164.5;
-          $x = 55;
-          $y = 175;
-          break;
-    case '103':
-        $x1 = 48;
-        $y1 = 164.5;
-          $x = 127;
-          $y = 175;
-          break;
-    //社会服务综合类
-    case '104':
-        $x1 = 48;
-        $y1 = 181.5;
-          $x = 55;
-          $y = 187;
-          break;
-    case '105':
-        $x1 = 48;
-        $y1 = 181.5;
-          $x = 127;
-          $y = 187;
-          break;
-    case '106':
-        $x1 = 48;
-        $y1 = 181.5;
-          $x = 55;
-          $y = 192;
-          break;
-  }
-   // var_dump($x,$y);exit;
+         case '82':
+             $x1 = 52.5;
+             $y1 = 75.5;
+                 $x = 132.8;
+                 $y = 87;
+             break;
+         //智能电子信息类
+         case '83':
+             $x1 = 54.5;
+             $y1 = 92;
+                 $x = 61;
+                 $y = 98;
+             break;
+         case '84':
+             $x1 = 54.5;
+             $y1 = 92;
+                 $x = 132.8;
+                 $y = 98;
+             break;
+         case '85':
+             $x1 = 54.5;
+             $y1 = 92;
+                 $x = 61;
+                 $y = 103.7;
+             break;
+         case '86':
+             $x1 = 54.5;
+             $y1 = 92;
+                 $x = 132.8;
+                 $y = 103.7;
+             break;
+         //新能源新材料类
+         case '87':
+             $x1 = 54.5;
+             $y1 = 109.1;
+                 $x = 61;
+                 $y = 114.3;
+             break;
+         case '88':
+             $x1 = 54.5;
+             $y1 = 109.1;
+                 $x = 132.8;
+                 $y = 114.3;
+             break;
+         case '89':
+             $x1 = 54.5;
+             $y1 = 109.1;
+                 $x = 61;
+                 $y = 120;
+             break;
+         case '90':
+             $x1 = 54.5;
+             $y1 = 109.1;
+                 $x = 132.8;
+                 $y = 120;
+             break;
+         //食品及包装类
+         case '91':
+             $x1 = 54.5;
+             $y1 = 125.5;
+                 $x = 61;
+                 $y = 130.8;
+             break;
+         //健康安全防护类
+         case '92':
+             $x1 = 54.5;
+             $y1 = 136;
+                 $x = 61;
+                 $y = 142;
+             break;
+         case '93':
+             $x1 = 54.5;
+             $y1 = 136;
+                 $x = 132.8;
+                 $y = 142;
+             break;
+         case '94':
+             $x1 = 54.5;
+             $y1 = 136;
+                 $x = 61;
+                 $y = 148;
+             break;
+         //纺织服饰
+         case '95':
+             $x1 = 54.5;
+             $y1 = 152.5;
+                 $x = 61;
+                 $y = 158.5;
+             break;
+         case '96':
+             $x1 = 54.5;
+             $y1 = 152.5;
+                 $x = 132.8;
+                 $y = 158.5;
+             break;
+         //文娱创意类
+         case '97':
+             $x1 = 54.5;
+             $y1 = 163.5;
+                 $x = 61;
+                 $y = 169.5;
+             break;
+         case '98':
+             $x1 = 54.5;
+             $y1 = 163.5;
+                 $x = 132.8;
+                 $y = 169.5;
+             break;
+         case '99':
+             $x1 = 54.5;
+             $y1 = 163.5;
+                 $x = 61;
+                 $y = 175;
+             break;
+         //泛家居类
+         case '100':
+             $x1 = 54.5;
+             $y1 = 180.5;
+                 $x = 61;
+                 $y = 186;
+             break;
+         case '101':
+             $x1 = 54.5;
+             $y1 = 180.5;
+                 $x = 133;
+                 $y = 186;
+             break;
+         case '102':
+             $x1 = 54.5;
+             $y1 = 180.5;
+                 $x = 61;
+                 $y = 191.5;
+             break;
+         case '103':
+             $x1 = 54.5;
+             $y1 = 180.5;
+                 $x = 133;
+                 $y = 191.5;
+             break;
+         //社会服务综合类
+         case '104':
+             $x1 = 54.5;
+             $y1 = 197.1;
+                 $x = 133;
+                 $y = 202.5;
+             break;
+         case '105':
+             $x1 = 54.5;
+             $y1 = 197.1;
+                 $x = 61;
+                 $y = 202.5;
+             break;
+         case '106':
+             $x1 = 54.5;
+             $y1 = 197.1;
+                 $x = 61;
+                 $y = 208.5;
+             break;
+     }
+ }
+
+//    dump($x,$y);dump($x1,$y1);die;
    $pdf->SetFontSize(12);
   $pdf->SetXY($x, $y);
   $pdf->Write(0, '√', '', 0, 'L', true, 0, false, false, 0); //作品类别
@@ -900,50 +958,50 @@ function pdf($id)
 
   //版权登记
   if ($work['copyright'] == 0) {//是
-    $pdf->SetXY(152, 240);
+    $pdf->SetXY(156, 229);
     $pdf->Write(0, '√', '', 0, 'L', true, 0, false, false, 0);
   }
   if ($work['copyright'] == 1) {//否
-    $pdf->SetXY(167, 240);
+    $pdf->SetXY(171, 229);
     $pdf->Write(0, '√', '', 0, 'L', true, 0, false, false, 0);
   }
   //所有权
   //$work['suoyouquan'] = 1;
-  if ($work['suoyouquan'] == 0) {
-    $pdf->SetXY(56, 253.5);
-    $pdf->Write(0, '√', '', 0, 'L', true, 0, false, false, 0); //单位
-  }
-  if ($work['suoyouquan'] == 1) {
-    $pdf->SetXY(76, 253.5);
-    $pdf->Write(0, '√', '', 0, 'L', true, 0, false, false, 0); //个个
-  }
+//  if ($work['suoyouquan'] == 0) {
+//    $pdf->SetXY(56, 253.5);
+//    $pdf->Write(0, '√', '', 0, 'L', true, 0, false, false, 0); //单位
+//  }
+//  if ($work['suoyouquan'] == 1) {
+//    $pdf->SetXY(76, 253.5);
+//    $pdf->Write(0, '√', '', 0, 'L', true, 0, false, false, 0); //个个
+//  }
 
   //申专利
  $patentarr = explode(",",$work['patent']);
   if (in_array(0,$patentarr)) {
-    $pdf->SetXY(56, 240);
+    $pdf->SetXY(63.5, 229.1);
     $pdf->Write(0, '√', '', 0, 'L', true, 0, false, false, 0); //发明
   }
   if (in_array(1,$patentarr)) {
-    $pdf->SetXY(56, 240);
+    $pdf->SetXY(63.5, 229.1);
     $pdf->Write(0, '√', '', 0, 'L', true, 0, false, false, 0); //实用新型
   }
   
    if (in_array(2,$patentarr)) {
-		$pdf->SetXY(56, 240);
+		$pdf->SetXY(63.5, 229.1);
 		$pdf->Write(0, '√', '', 0, 'L', true, 0, false, false, 0); //外观设计
 	  }
    if (in_array(3,$patentarr)) {
-		$pdf->SetXY(76, 240);
+		$pdf->SetXY(78.5, 229.1);
 		$pdf->Write(0, '√', '', 0, 'L', true, 0, false, false, 0); //无
 	  }
  
  
-   $pdf->SetFontSize(14);
+   $pdf->SetFontSize(12);
   // $pdf->MultiCell(56, 86, preg_replace('/\n{16,}/','',$work['gsize']), 0, 'L', false, 0, 57,96, true, $stretch=0, false, false, '', 'M',true);
     //尺寸
-//  $pdf->SetXY(150, 87);
-//  $pdf->Write(0, $work['gsize'], '', 0, 'L', true, 0, false, false, 0);
+  $pdf->SetXY(63, 242);
+  $pdf->Write(0, $work['gsize'], '', 0, 'L', true, 0, false, false, 0);
   //所有权
   // if ($work['proprietary_rights'] == 0) {
   //   $pdf->SetXY(59, 110);
@@ -954,14 +1012,14 @@ function pdf($id)
   //   $pdf->Write(0, '√', '', 0, 'L', true, 0, false, false, 0); //个人
   // }
   //上市或完成日期
-  $pdf->SetFontSize(14);
-  $pdf->SetXY(150, 253.5);
-  $pdf->Write(0, date('Y - m - d', $work['completion_date']), '', 0, 'L', true, 0, false, false, 0);
+  $pdf->SetFontSize(12);
+  $pdf->SetXY(144, 242);
+  $pdf->Write(0, date('Y', $work['completion_date']), '', 0, 'L', true, 0, false, false, 0);
   
- // $pdf->SetXY(158, 140);
-  //$pdf->Write(0, date('m', $work['completion_date']), '', 0, 'L', true, 0, false, false, 0);
- // $pdf->SetXY(172, 140);
-  //$pdf->Write(0, date('d', $work['completion_date']), '', 0, 'L', true, 0, false, false, 0);
+  $pdf->SetXY(163, 242);
+  $pdf->Write(0, date('m', $work['completion_date']), '', 0, 'L', true, 0, false, false, 0);
+  $pdf->SetXY(177, 242);
+  $pdf->Write(0, date('d', $work['completion_date']), '', 0, 'L', true, 0, false, false, 0);
 
 //  //作品说明
 //  $pdf->SetFontSize(12);
@@ -970,14 +1028,14 @@ function pdf($id)
 
     //作品说明
   $pdf->AddPage(); //表4：作品描述
-  $pdf->Image('./static/pdf-assets/p6-01.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+  $pdf->Image('./static/pdf-assets/p7.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
 
     $pdf->SetFontSize(12);
-    $pdf->MultiCell(160, 110, preg_replace('/\n{2,}/','',$work['works_description']), 0, 'L', 1, 0, 26, 60, true, $stretch=0, false, false, '', 'M');
+    $pdf->MultiCell(160, 110, preg_replace('/\n{2,}/','',$work['works_description']), 0, 'L', 1, 0, 26, 90, true, $stretch=0, false, false, '', 'M');
 
     //表4：作品图片页面
     $pdf->AddPage();
-    $pdf->Image('./static/pdf-assets/p7.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+    $pdf->Image('./static/pdf-assets/p8.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
 
     $pdf->SetFontSize(12);
   if (!empty($work['work_pic1'])) {
@@ -987,9 +1045,9 @@ function pdf($id)
     $thumbName = \substr($base, 0, strrpos($base, '.')) . '_s' . $ext;
 
     if (file_exists('.' . $dir . '/' . $thumbName)) {
-      $pdf->Image('.' . $dir . '/' . $thumbName, 30, 60, 100, 60, '', '', 'C', false, 500, '', false, false, 0);
+      $pdf->Image('.' . $dir . '/' . $thumbName, 50, 70, 100, 60, '', '', 'C', false, 500, '', false, false, 0);
     } else {
-      $pdf->Image('.' . $work['work_pic1'], 30, 60, 100, 60, '', '', '', false, 500, '', false, false, 0);
+      $pdf->Image('.' . $work['work_pic1'], 50, 70, 100, 60, '', '', '', false, 500, '', false, false, 0);
     }
   }
   if (!empty($work['work_pic2'])) {
@@ -999,9 +1057,9 @@ function pdf($id)
     $thumbName = \substr($base, 0, strrpos($base, '.')) . '_s' . $ext;
 
     if (file_exists('.' . $dir . '/' . $thumbName)) {
-      $pdf->Image('.' . $dir . '/' . $thumbName, 24, 130, 50, 46,'', '', '', false, 500, '', false, false, 0);
+      $pdf->Image('.' . $dir . '/' . $thumbName, 27, 142, 50, 46,'', '', '', false, 500, '', false, false, 0);
     } else {
-      $pdf->Image('.' . $work['work_pic2'], 24, 130, 50, 46, '', '', '', false, 500, '', false, false, 0);
+      $pdf->Image('.' . $work['work_pic2'], 27, 142, 50, 46, '', '', '', false, 500, '', false, false, 0);
     }
   }
   if (!empty($work['work_pic3'])) {
@@ -1011,9 +1069,9 @@ function pdf($id)
     $thumbName = \substr($base, 0, strrpos($base, '.')) . '_s' . $ext;
     //3
     if (file_exists('.' . $dir . '/' . $thumbName)) {
-      $pdf->Image('.' . $dir . '/' . $thumbName, 80, 130, 50, 46, '', '', '', false, 500, '', false, false, 0);
+      $pdf->Image('.' . $dir . '/' . $thumbName, 80, 142, 50, 46, '', '', '', false, 500, '', false, false, 0);
     } else {
-      $pdf->Image('.' . $work['work_pic3'], 80, 130, 50, 46, '', '', '', false, 500, '', false, false, 0);
+      $pdf->Image('.' . $work['work_pic3'], 80, 142, 50, 46, '', '', '', false, 500, '', false, false, 0);
     }
  
   }
@@ -1024,9 +1082,9 @@ function pdf($id)
     $thumbName = \substr($base, 0, strrpos($base, '.')) . '_s' . $ext;
 
      if (file_exists('.' . $dir . '/' . $thumbName)) {
-      $pdf->Image('.' . $dir . '/' . $thumbName, 136, 130, 50, 46, '', '', '', false, 500, '', false, false, 0);
+      $pdf->Image('.' . $dir . '/' . $thumbName, 136, 142, 50, 46, '', '', '', false, 500, '', false, false, 0);
     } else {
-      $pdf->Image('.' . $work['work_pic4'], 136, 130, 50, 46, '', '', '', false, 500, '', false, false, 0);
+      $pdf->Image('.' . $work['work_pic4'], 136, 142, 50, 46, '', '', '', false, 500, '', false, false, 0);
     }
   }
   if (!empty($work['work_pic5'])) {
@@ -1036,9 +1094,9 @@ function pdf($id)
     $thumbName = \substr($base, 0, strrpos($base, '.')) . '_s' . $ext;
 
     if (file_exists('.' . $dir . '/' . $thumbName)) {
-      $pdf->Image('.' . $dir . '/' . $thumbName, 24, 185, 50, 46, '', '', '', false, 500, '', false, false, 0);
+      $pdf->Image('.' . $dir . '/' . $thumbName, 27, 195, 50, 46, '', '', '', false, 500, '', false, false, 0);
     } else {
-      $pdf->Image('.' . $work['work_pic5'], 24, 185, 50, 46, '', '', '', false, 500, '', false, false, 0);
+      $pdf->Image('.' . $work['work_pic5'], 27, 195, 50, 46, '', '', '', false, 500, '', false, false, 0);
     }
   }
   if (!empty($work['work_pic6'])) {
@@ -1048,9 +1106,9 @@ function pdf($id)
     $thumbName = \substr($base, 0, strrpos($base, '.')) . '_s' . $ext;
 
     if (file_exists('.' . $dir . '/' . $thumbName)) {
-      $pdf->Image('.' . $dir . '/' . $thumbName, 80, 185, 50, 46, '', '', '', false, 500, '', false, false, 0);
+      $pdf->Image('.' . $dir . '/' . $thumbName, 80, 195, 50, 46, '', '', '', false, 500, '', false, false, 0);
     } else {
-      $pdf->Image('.' . $work['work_pic6'], 80, 185, 50, 46, '', '', '', false, 500, '', false, false, 0);
+      $pdf->Image('.' . $work['work_pic6'], 80, 195, 50, 46, '', '', '', false, 500, '', false, false, 0);
     }
   }
   if (!empty($work['work_pic7'])) {
@@ -1060,9 +1118,9 @@ function pdf($id)
     $thumbName = \substr($base, 0, strrpos($base, '.')) . '_s' . $ext;
 
     if (file_exists('.' . $dir . '/' . $thumbName)) {
-      $pdf->Image('.' . $dir . '/' . $thumbName, 136, 185, 50, 46, '', '', '', false, 500, '', false, false, 0);
+      $pdf->Image('.' . $dir . '/' . $thumbName, 136, 195, 50, 46, '', '', '', false, 500, '', false, false, 0);
     } else {
-      $pdf->Image('.' . $work['work_pic7'], 136, 185, 50, 46, '', '', '', false, 500, '', false, false, 0);
+      $pdf->Image('.' . $work['work_pic7'], 136, 195, 50, 46, '', '', '', false, 500, '', false, false, 0);
     }
   }
   /*if (!empty($work['work_pic7'])) {
